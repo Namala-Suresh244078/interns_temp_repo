@@ -1,44 +1,51 @@
 package com.mphasis.tflms.apicontroller;
-import com.mphasis.tflms.requestdto.FileLoadRequest;
-import com.mphasis.tflms.responsedto.FileLoadResponse;
-import com.mphasis.tflms.searchcriteriadto.SearchCriteria;
+
+import com.mphasis.tflms.responsedto.*;
+import com.mphasis.tflms.service.FileLoadService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/file-loads")
+@RequestMapping("/api/file-load")
 @SecurityRequirement(name = "bearerAuth") // JWT security requirement
 public class FileLoadController {
 
     @Autowired
     private FileLoadService fileLoadService;
 
-    // Create a new file load
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')") // Example authorization
-    @Operation(summary = "Create a new file load", responses = {
-            @ApiResponse(description = "File load created", responseCode = "201"),
-            @ApiResponse(description = "Bad request", responseCode = "400")
+    // File Upload API
+    @PostMapping("/upload")
+    @Operation(summary = "Upload a file", responses = {
+            @ApiResponse(description = "File uploaded successfully", responseCode = "201"),
+            @ApiResponse(description = "Invalid file type or request", responseCode = "400")
     })
-    public FileLoadResponse createFileLoad(@RequestBody @Valid FileLoadRequest fileLoadRequestDTO) {
-        return fileLoadService.createFileLoad(fileLoadRequestDTO);
+    public ResponseEntity<ApiResponse<FileloadResponse>> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("fileType") String fileType,
+            @RequestParam("description") String description) {
+
+        FileloadResponse response = fileLoadService.uploadFile(file, fileType, description);
+        return ResponseEntity.status(201).body(new ApiResponse<>(LocalDateTime.now(), "SUCCESS", 201, "File uploaded successfully", response));
     }
 
-    // Retrieve a file load by ID
-    @GetMapping("/{id}")
-    @Operation(summary = "Retrieve file load by ID", responses = {
-            @ApiResponse(description = "File load retrieved", responseCode = "200"),
-            @ApiResponse(description = "File load not found", responseCode = "404")
+    // Retrieve File Processing Status
+    @GetMapping("/{fileId}/status")
+    @Operation(summary = "Get file processing status", responses = {
+            @ApiResponse(description = "File processing status retrieved", responseCode = "200"),
+            @ApiResponse(description = "File not found", responseCode = "404")
     })
-    public FileLoadResponse getFileLoad(@PathVariable Long id) {
-        return fileLoadService.getFileLoadById(id);
+    public ResponseEntity<ApiResponse<FileProcessingStatus>> getFileProcessingStatus(@PathVariable String fileId) {
+        FileProcessingStatus status = fileLoadService.getFileProcessingStatus(fileId);
+        return ResponseEntity.ok(new ApiResponse< >(LocalDateTime.now(), "SUCCESS", 200, "File processing status retrieved", status));
     }
 
     // Search for file loads
@@ -47,40 +54,31 @@ public class FileLoadController {
             @ApiResponse(description = "List of file loads retrieved", responseCode = "200"),
             @ApiResponse(description = "No content", responseCode = "204")
     })
-    public List<FileLoadResponse> searchFileLoads(SearchCriteria searchCriteriaDTO) {
-        return fileLoadService.searchFileLoads(searchCriteriaDTO);
+    public ResponseEntity<ApiResponse<List<FileloadResponse>>> searchFileLoads() {
+        List<FileloadResponse> responses = fileLoadService.searchFileLoads();
+        return ResponseEntity.ok(new ApiResponse<>(LocalDateTime.now(), "SUCCESS", 200, "File loads retrieved successfully", responses));
     }
 
-    // Update the status of a file load
-    @PutMapping("/{id}/status")
+    // Update File Load Status
+    @PutMapping("/{fileId}/status")
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Update the status of a file load", responses = {
+    @Operation(summary = "Update file load status", responses = {
             @ApiResponse(description = "File load status updated", responseCode = "200"),
-            @ApiResponse(description = "File load not found", responseCode = "404")
+            @ApiResponse(description = "File not found", responseCode = "404")
     })
-    public void updateFileLoadStatus(@PathVariable Long id, @RequestBody String status) {
-        fileLoadService.updateFileLoadStatus(id, status);
+    public ResponseEntity<ApiResponse<Void>> updateFileLoadStatus(@PathVariable String fileId, @RequestBody String status) {
+        fileLoadService.updateFileLoadStatus(fileId, status);
+        return ResponseEntity.ok(new ApiResponse<>(LocalDateTime.now(), "SUCCESS", 200, "File load status updated successfully"));
     }
 
     // Delete a file load
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{fileId}")
     @Operation(summary = "Delete a file load", responses = {
             @ApiResponse(description = "File load deleted", responseCode = "200"),
-            @ApiResponse(description = "File load not found", responseCode = "404")
+            @ApiResponse(description = "File not found", responseCode = "404")
     })
-    public void deleteFileLoad(@PathVariable Long id) {
-        fileLoadService.deleteFileLoad(id);
-    }
-
-    // Archive a file load
-    @PostMapping("/{id}/archive")
-    @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Archive a file load", responses = {
-            @ApiResponse(description = "File load archived", responseCode = "200"),
-            @ApiResponse(description = "File load not found", responseCode = "404")
-    })
-    public void archiveFileLoad(@PathVariable Long id) {
-        fileLoadService.archiveFileLoad(id);
+    public ResponseEntity<ApiResponse<Void>> deleteFileLoad(@PathVariable String fileId) {
+        fileLoadService.deleteFileLoad(fileId);
+        return ResponseEntity.ok(new ApiResponse<>(LocalDateTime.now(), "SUCCESS", 200, "File load deleted successfully"));
     }
 }
