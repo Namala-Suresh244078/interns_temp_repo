@@ -1,1 +1,12 @@
-<p>file-upload works!</p>
+  <div class="main-container">
+    <div class="header"></div>
+    <div class="upload-container">
+        <input type="file" accept=".txt" (change)="onFileSelected($event)">
+        <button (click)="onUpload()" [disabled]="isUploading">Upload</button>
+    </div>
+</div>
+
+<div *ngIf="isUploading">
+  <p>Uploading... {{ uploadProgress }}% ({{ uploadedSize }} / {{ totalSize }})</p>
+  <progress [value]="uploadProgress" max="100"></progress>
+</div>
