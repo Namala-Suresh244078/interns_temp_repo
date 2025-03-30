@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+/* Light theme (default) */
+body {
+    background-color: #ffffff;
+    color: #000000;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Dark theme */
+  body.dark-theme {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+  /* Optional: adjust header for dark theme */
+  body.dark-theme .app-header {
+    background-color: #e0f7fa;
+    color: #000;
+  }
+  
+  .theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: inherit;
+  }

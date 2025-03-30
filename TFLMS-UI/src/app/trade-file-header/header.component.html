@@ -1,0 +1,14 @@
+<header class="app-header">
+    <div class="left">
+      <img src="https://www.mphasis.com/content/dam/mphasis-com/global/logo/mphasis-logo.png" alt="Logo" class="logo" />
+    </div>
+    <nav class="center">
+      <p class="typing">Mphasis</p>
+    </nav>
+    <div class="right">
+      <span>{{ currentTime }}</span>
+      <button (click)="toggleTheme()" class="theme-toggle">
+        {{ isDarkMode ? '☀️' : '🌙' }}
+      </button>
+    </div>
+  </header>
