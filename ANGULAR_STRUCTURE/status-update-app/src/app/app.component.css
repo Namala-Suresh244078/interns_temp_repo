@@ -1,0 +1,13 @@
+/* Ensure full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Center the content */
+.container {
+  text-align: center;
+}
