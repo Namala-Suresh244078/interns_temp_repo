@@ -1,1 +1,25 @@
-<p>file-list works!</p>
+<div class="table-container">
+    <h1>File List</h1>
+    <h2>Uploaded Files</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>File ID</th>
+          <th>Filename</th>
+          <th>Upload Date</th>
+          <th>Status</th>
+          <th>Record Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of files">
+          <td>{{ file.id }}</td>
+          <td>{{ file.filename }}</td>
+          <td>{{ file.uploadDate }}</td>
+          <td>{{ file.status }}</td>
+          <td>{{ file.recordCount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
