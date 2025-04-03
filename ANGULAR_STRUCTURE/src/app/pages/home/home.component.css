@@ -1,0 +1,38 @@
+.container {
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  
+  .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .tab:hover {
+    background-color: #c3b6b6;
+  }
+  
+  .tab.active {
+    border-bottom: 3px solid #007bff;
+    font-weight: bold;
+  }
+  
+
+  .tab-content {
+    padding: 15px;
+    background: #c3b6b6;
+    border-radius: 5px;
+    border: 1px solid #180707;
+  }
+  

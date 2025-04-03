@@ -1,1 +1,21 @@
-<p>home works!</p>
+<div class="container">
+    
+    <div class="tabs">
+      <div class="tab" [class.active]="activeTab === 'home'" (click)="setActiveTab('home')">Home</div>
+      <div class="tab" [class.active]="activeTab === 'upload'" (click)="setActiveTab('upload')">File Upload</div>
+      <div class="tab" [class.active]="activeTab === 'details'" (click)="setActiveTab('details')">File Upload Details</div>
+    </div>
+  
+    
+    <div class="tab-content">
+      <div *ngIf="activeTab === 'home'">
+        <h2>About</h2>
+        <p>Welcome to our Trade Data Processing System, a high-performance framework designed to handle large-scale trade information files efficiently. This system can process up to 10 million records daily, ensuring fast execution with minimal processing time.
+
+            Users can easily navigate through the Home, File Upload, and File Upload Details sections. The platform allows seamless file uploads, real-time tracking of processed records, and optimized data management. By leveraging efficient algorithms and scalable architecture, our solution ensures accuracy, reliability, and speed—making it ideal for high-volume trade data environments.</p>
+      </div>
+  
+ 
+    </div>
+  </div>
+  
