@@ -1,5 +1,3 @@
-
-
 import { Routes } from '@angular/router';
 import { HomeComponent } from './trade-file-pages/trade-file-home/home.component';
 import { FileDetailsComponent } from './trade-file-pages/trade-file-details/file-details.component';
