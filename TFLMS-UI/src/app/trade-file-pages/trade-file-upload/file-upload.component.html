@@ -1,8 +1,8 @@
 <div class="main-container">
     <div class="header"></div>
     <div class="upload-container">
-        <input type="file" accept=".txt" (change)="onFileSelected($event)">
-        <button (click)="onUpload()" [disabled]="isUploading">Upload</button>
+        <input class="file-input" type="file" accept=".txt" (change)="onFileSelected($event)">
+        <button class="upload-button" (click)="onUpload()" [disabled]="isUploading">Upload</button>
     </div>
 </div>
 
@@ -11,7 +11,7 @@
   <progress [value]="uploadProgress" max="100"></progress>
 </div>
 
-<div *ngIf="showDialog" class="popup">
+<div *ngIf="showDialog" class="popup-container">
   <div class="popup-content">
     <p>{{ dialogMessage }}</p>
     <button (click)="showDialog = false">OK</button>

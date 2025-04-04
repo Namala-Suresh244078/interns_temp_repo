@@ -7,14 +7,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
-
-
+import { UPLOAD_ENDPOINT } from '../../../constants';
 @Component({
   selector: 'app-file-upload',
   standalone: true,
   imports: [HttpClientModule, CommonModule, MatDialogModule, MatButtonModule],
   templateUrl: './file-upload.component.html',
   styleUrl: './file-upload.component.css'
+  
 })
 export class FileUploadComponent {
   selectedFile: File | null = null;
@@ -25,6 +25,8 @@ export class FileUploadComponent {
   showDialog: boolean = false;
   dialogMessage: string = "";
   isDialogOpen: boolean = false;;
+
+  
 
   constructor(private http: HttpClient,private dialog: MatDialog) {}
 
@@ -69,7 +71,7 @@ export class FileUploadComponent {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
   
-    this.http.post('http://localhost:8080/api/upload', formData, {
+    this.http.post(UPLOAD_ENDPOINT, formData, {
       responseType: 'text',
       reportProgress: true,
       observe: 'events'

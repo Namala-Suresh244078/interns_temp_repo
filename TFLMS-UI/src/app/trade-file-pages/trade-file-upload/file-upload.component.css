@@ -1,5 +1,3 @@
-
-
 /* Style the upload container */
 .upload-container {
     border: 2px solid white;
@@ -23,7 +21,7 @@
 }
 
 /* Style the file input */
-input[type="file"] {
+.file-input[type="file"] {
     width: 90%;
     padding: 12px;
     margin-top: 15px;
@@ -42,7 +40,7 @@ input[type="file"]:hover {
 }
 
 /* Style the upload button */
-button {
+.upload-button {
     background: #007bff;
     color: white;
     padding: 12px 20px;
@@ -55,7 +53,7 @@ button {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-button:hover {
+.upload-button:hover {
     background: #0056b3;
     transform: scale(1.05);
 }
@@ -77,7 +75,7 @@ button:hover {
 }
 
 
-.popup {
+.popup-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -100,7 +98,7 @@ button:hover {
     animation: fadeIn 0.3s ease-in-out;
   }
   
-  .popup-content p {
+  .popup-content {
     font-size: 20px;
     color: #333;
     margin-bottom: 20px;
