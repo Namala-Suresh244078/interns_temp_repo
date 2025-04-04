@@ -7,9 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
-const FRONTEND_URL = 'http://localhost:4200';
-const BACKEND_URL = 'http://localhost:8080/api';
-const upload_url = `${BACKEND_URL}/upload`;
+import { UPLOAD_ENDPOINT } from '../../../constants';
 @Component({
   selector: 'app-file-upload',
   standalone: true,
@@ -73,7 +71,7 @@ export class FileUploadComponent {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
   
-    this.http.post(upload_url, formData, {
+    this.http.post(UPLOAD_ENDPOINT, formData, {
       responseType: 'text',
       reportProgress: true,
       observe: 'events'
