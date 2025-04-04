@@ -9,5 +9,5 @@ import java.util.List;
 public interface ProcessedFileRepository extends JpaRepository<ProcessedFile,Long> {
     ProcessedFile findByFileName(String fileName);
     List<ProcessedFile> findByStatus(String status);
-    List<ProcessedFile> findByCreatedDateBetween(LocalDateTime startDate, LocalDateTime endDate);
+    List<ProcessedFile> findByCreatedDate(LocalDateTime startDate, LocalDateTime endDate);
 }
