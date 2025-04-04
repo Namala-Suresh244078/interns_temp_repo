@@ -1,99 +1,98 @@
 package com.mphasis.tflms;
 
+import com.mphasis.tflms.constants.TransactionDataConstants;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "TransFileData")
+@Table(name = TransactionDataConstants.TABLE_NAME)
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class TransactionData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = TransactionDataConstants.COLUMN_ID)
     private Long id;
 
     @NotNull(message = "File header date cannot be null")
+    @Column(name = TransactionDataConstants.COLUMN_FILE_HEADER_DATE)
     private LocalDate fileHeaderDate;
 
     @NotNull
-    @Size(min = 10, max = 20)
-    @Column(unique = true)
+    @Column(name = TransactionDataConstants.COLUMN_ACCOUNT_NUMBER, unique = true)
     private String accountNumber;
 
     @NotNull
-    @Size(max = 50)
+    @Column(name = TransactionDataConstants.COLUMN_TRANSACTION_TYPE)
     private String transactionType;
 
     @NotNull
-    @Size(max = 255)
+    @Column(name = TransactionDataConstants.COLUMN_BATCH_LOCATION)
     private String batchLocation;
 
     @NotNull
-    @Size(max = 50)
-    @Column(unique = true)
+    @Column(name = TransactionDataConstants.COLUMN_BATCH_NUMBER, unique = true)
     private String batchNumber;
 
     @NotNull
-    @Size(max = 100)
+    @Column(name = TransactionDataConstants.COLUMN_UPDATE_BATCH_STATE)
     private String updateBatchState;
 
-    @Size(max = 50)
+    @Column(name = TransactionDataConstants.COLUMN_RELATED_FILE_NUMBER)
     private String relatedFileNumber;
 
     @NotNull
-    @Size(max = 100)
+    @Column(name = TransactionDataConstants.COLUMN_ACTION_NAME)
     private String actionName;
 
     @NotNull
-    @Size(max = 100)
-    @Column(unique = true)
+    @Column(name = TransactionDataConstants.COLUMN_RELATED_FILE_KEY, unique = true)
     private String relatedFileKey;
 
     @NotNull
-    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+    @Column(name = TransactionDataConstants.COLUMN_DO_NOT_REPORT_FLAG, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean doNotReportFlag = false;
 
-    @Size(max = 500)
+    @Column(name = TransactionDataConstants.COLUMN_EXPLANATION)
     private String explanation;
 
-    @Size(max = 100)
+    @Column(name = TransactionDataConstants.COLUMN_MINOR_ASSETS_CLASS)
     private String minorAssetsClass;
 
     @NotNull
-    @Size(max = 100)
+    @Column(name = TransactionDataConstants.COLUMN_OWNING_PORTFOLIO)
     private String owningPortfolio;
 
     @NotNull
-    @Size(min = 2, max = 5)
+    @Column(name = TransactionDataConstants.COLUMN_POSTER_INITIALS)
     private String posterInitials;
 
     @NotNull
-    @Size(max = 100)
+    @Column(name = TransactionDataConstants.COLUMN_TRANSACTION_SUBTYPE)
     private String transactionSubtype;
 
     @NotNull
-    @Digits(integer = 12, fraction = 2)
+    @Column(name = TransactionDataConstants.COLUMN_CASH_EFFECT)
     private BigDecimal cashEffect;
 
-    @Digits(integer = 12, fraction = 2)
+    @Column(name = TransactionDataConstants.COLUMN_CASH_PAID_OUT)
     private BigDecimal cashPaidOut;
 
-    @Size(max = 20)
+    @Column(name = TransactionDataConstants.COLUMN_BROKER_NUMBER)
     private String brokerNumber;
 
     @NotNull
-    @Digits(integer = 17, fraction = 2)
+    @Column(name = TransactionDataConstants.COLUMN_OLD_BALANCE)
     private BigDecimal oldBalance;
 
     @NotNull
-    @Digits(integer = 17, fraction = 2)
+    @Column(name = TransactionDataConstants.COLUMN_NEW_BALANCE)
     private BigDecimal newBalance;
-
 }
