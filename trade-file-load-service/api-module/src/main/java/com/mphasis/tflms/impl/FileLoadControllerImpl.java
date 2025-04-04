@@ -2,6 +2,7 @@ package com.mphasis.tflms.impl;
 
 import com.mphasis.tflms.apicontroller.FileLoadController;
 import com.mphasis.tflms.apiresponse.ApiResponse;
+import com.mphasis.tflms.constants.AppConstants;
 import com.mphasis.tflms.responsedto.FileLoadResponse;
 import com.mphasis.tflms.searchcriteriadto.SearchCriteria;
 import com.mphasis.tflms.service.FileLoadService;
@@ -17,7 +18,6 @@ import java.util.List;
 public class FileLoadControllerImpl implements FileLoadController {
 
     private final FileLoadService fileLoadService;
-    private static final String SUCCESS = "SUCCESS";
 
     public FileLoadControllerImpl(FileLoadService fileLoadService) {
         this.fileLoadService = fileLoadService;
@@ -27,14 +27,14 @@ public class FileLoadControllerImpl implements FileLoadController {
     public ResponseEntity<ApiResponse<FileLoadResponse>> uploadFile(MultipartFile file, String fileType, String description) {
         FileLoadResponse response = fileLoadService.uploadFile(file, fileType, description);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ApiResponse<>(LocalDateTime.now(), SUCCESS, HttpStatus.CREATED.value(), "File uploaded successfully", response));
+                .body(new ApiResponse<>(LocalDateTime.now(), AppConstants.SUCCESS, HttpStatus.CREATED.value(), "File uploaded successfully", response));
     }
 
     @Override
     public ResponseEntity<ApiResponse<FileLoadResponse>> getFileProcessingStatus(Long fileId) {
         FileLoadResponse status = fileLoadService.getFileProcessingStatus(fileId);
         return ResponseEntity.ok(
-                new ApiResponse<>(LocalDateTime.now(), SUCCESS, HttpStatus.OK.value(), "File processing status retrieved", status)
+                new ApiResponse<>(LocalDateTime.now(), AppConstants.SUCCESS, HttpStatus.OK.value(), "File processing status retrieved", status)
         );
     }
 
@@ -42,7 +42,7 @@ public class FileLoadControllerImpl implements FileLoadController {
     public ResponseEntity<ApiResponse<List<FileLoadResponse>>> searchFileLoads(SearchCriteria searchCriteria) {
         List<FileLoadResponse> responses = fileLoadService.searchFileLoads(searchCriteria);
         return ResponseEntity.ok(
-                new ApiResponse<>(LocalDateTime.now(), SUCCESS, HttpStatus.OK.value(), "File loads retrieved successfully", responses)
+                new ApiResponse<>(LocalDateTime.now(), AppConstants.SUCCESS, HttpStatus.OK.value(), "File loads retrieved successfully", responses)
         );
     }
 
@@ -50,7 +50,7 @@ public class FileLoadControllerImpl implements FileLoadController {
     public ResponseEntity<ApiResponse<Void>> updateFileLoadStatus(Long fileId, String status) {
         fileLoadService.updateFileLoadStatus(fileId, status);
         return ResponseEntity.ok(
-                new ApiResponse<>(LocalDateTime.now(), SUCCESS, HttpStatus.OK.value(), "File load status updated successfully")
+                new ApiResponse<>(LocalDateTime.now(), AppConstants.SUCCESS, HttpStatus.OK.value(), "File load status updated successfully")
         );
     }
 
@@ -58,7 +58,7 @@ public class FileLoadControllerImpl implements FileLoadController {
     public ResponseEntity<ApiResponse<Void>> deleteFileLoad(Long fileId) {
         fileLoadService.deleteFileLoad(fileId);
         return ResponseEntity.ok(
-                new ApiResponse<>(LocalDateTime.now(), SUCCESS, HttpStatus.OK.value(), "File load deleted successfully")
+                new ApiResponse<>(LocalDateTime.now(), AppConstants.SUCCESS, HttpStatus.OK.value(), "File load deleted successfully")
         );
     }
 }
