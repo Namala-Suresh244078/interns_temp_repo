@@ -4,7 +4,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 import java.util.UUID;
 import static com.mphasis.tflms.batchconfiguration.TradeDataValidator.*;
-@Component
+
 public class TransactionDataProcessor implements ItemProcessor<String[],TransFileValidationWrapper> {
 
     @Override
