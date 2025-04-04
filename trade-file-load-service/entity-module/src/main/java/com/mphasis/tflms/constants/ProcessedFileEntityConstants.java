@@ -2,7 +2,7 @@ package com.mphasis.tflms.constants;
 
 public class ProcessedFileEntityConstants {
 
-    public static final String TABLE_NAME = "processed_file";
+    public static final String TABLE_NM_PROCESSED_FILE= "processed_file";
 
     public static final String COLUMN_FILE_NAME = "fileName";
     public static final String COLUMN_LOAD_DATE = "loadDate";
