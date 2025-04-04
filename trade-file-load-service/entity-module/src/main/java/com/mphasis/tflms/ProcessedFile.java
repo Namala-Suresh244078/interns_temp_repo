@@ -3,28 +3,27 @@ package com.mphasis.tflms;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import com.mphasis.tflms.constants.ProcessedFileEntityConstants;
 
 @Entity
-@Table(name = "processed_file")
+@Table(name = ProcessedFileEntityConstants.TABLE_NAME)
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class ProcessedFile extends Auditable {
 
+public class ProcessedFile extends AbstractBase {
 
-    @Column(nullable = false)
-    private String filename;
+    @Column(name = ProcessedFileEntityConstants.COLUMN_FILE_NAME, nullable = false)
+    private String fileName;
 
-    @Column(nullable = false)
+    @Column(name = ProcessedFileEntityConstants.COLUMN_LOAD_DATE, nullable = false)
     private LocalDateTime loadDate;
 
-    @Column(nullable = false)
+    @Column(name = ProcessedFileEntityConstants.COLUMN_STATUS, nullable = false)
     private String status;
 
-    @Column(nullable = false)
+    @Column(name = ProcessedFileEntityConstants.COLUMN_RECORD_COUNT, nullable = false)
     private int recordCount;
 
-    @Column(nullable = false)
+    @Column(name = ProcessedFileEntityConstants.COLUMN_RECORD_DELETED, nullable = false)
     private boolean recordDeleted;
 }
