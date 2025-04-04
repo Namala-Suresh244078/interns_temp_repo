@@ -10,8 +10,8 @@ public class TransFileWriter implements ItemWriter<TransDataValidationWrapper> {
     FileValidationRepository fileValidationRepository;
 
     @Override
-    public void write(Chunk<? extends TransDataValidationWrapper> chunk) throws Exception {
-        for (TransDataValidationWrapper dataValidationWrapper: chunk) {
+    public void write( transDataChunk<? extends TransDataValidationWrapper>  transDataChunk) throws Exception {
+        for (TransDataValidationWrapper dataValidationWrapper:  transDataChunk) {
             transactionFileRepository.save(dataValidationWrapper.getTransactionData());
 
             List<FileValidation> fileValidation = dataValidationWrapper.getFileValidation();
