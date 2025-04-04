@@ -4,11 +4,13 @@ import com.mphasis.tflms.service.TransFileUploadService;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class TransFileUploadServiceImpl implements TransFileUploadService {
@@ -25,7 +27,8 @@ public class TransFileUploadServiceImpl implements TransFileUploadService {
     }
 
     @Override
-    public void runJob(MultipartFile multipartFile) throws Exception {
+    @Async
+    public CompletableFuture<Void> runJob(MultipartFile multipartFile) throws Exception {
         String originalFilename = multipartFile.getOriginalFilename();
         if (!StringUtils.hasText(originalFilename)) {
             throw new IllegalArgumentException("File name is missing");
@@ -41,5 +44,7 @@ public class TransFileUploadServiceImpl implements TransFileUploadService {
                 .toJobParameters();
 
         jobLauncher.run(job, jobParameters);
+
+        return CompletableFuture.completedFuture(null);
     }
 }
