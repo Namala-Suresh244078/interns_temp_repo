@@ -21,7 +21,10 @@ import java.io.File;
 
 @Configuration
 public class TranFileLoadConfig extends BatchConfigConstants {
-
+    
+    @Value("${batchChunkSize}")
+    private int chunkSize;
+    
     @Bean
     @StepScope
     public FlatFileItemReader<String[]> itemReader(@Value("#{jobParameters['file']}") String filePath) {
@@ -51,7 +54,7 @@ public class TranFileLoadConfig extends BatchConfigConstants {
     @Bean
     public Step step (JobRepository jobRepository, PlatformTransactionManager transactionManager, FlatFileItemReader<String[]> itemReader) {
         return new StepBuilder("tradeFileProcessingStep", jobRepository)
-                .<String[], TransDataValidationWrapper>chunk(CHUNK_SIZE, transactionManager)
+                .<String[], TransDataValidationWrapper>chunk(chunkSize, transactionManager)
                 .reader(itemReader)
                 .processor(itemProcessor())
                 .writer(itemWriter())
