@@ -1,6 +1,6 @@
 package com.mphasis.tflms.constants;
 
-public class TransactionDataConstants {
+public class TransactionDataEntityConstants {
 
     public static final String TABLE_NAME = "TransFileData";
 
@@ -25,25 +25,4 @@ public class TransactionDataConstants {
     public static final String COLUMN_BROKER_NUMBER = "brokerNumber";
     public static final String COLUMN_OLD_BALANCE = "oldBalance";
     public static final String COLUMN_NEW_BALANCE = "newBalance";
-
-    // Field Lengths & Constraints
-    public static final int FILE_HEADER_DATE_LENGTH = 8;  // YYYYMMDD
-    public static final int ACCOUNT_NUMBER_LENGTH = 12;
-    public static final int TRANSACTION_TYPE_LENGTH = 3;
-    public static final int BATCH_LOCATION_LENGTH = 2;
-    public static final int BATCH_NUMBER_LENGTH = 6;
-    public static final int UPDATE_BATCH_STATE_LENGTH = 8;  // YYYYMMDD
-    public static final int RELATED_FILE_NUMBER_LENGTH = 2;
-    public static final int ACTION_NAME_LENGTH = 12;
-    public static final int RELATED_FILE_KEY_LENGTH = 6;
-    public static final int EXPLANATION_LENGTH = 50;
-    public static final int MINOR_ASSETS_CLASS_LENGTH = 3;
-    public static final int OWNING_PORTFOLIO_LENGTH = 1;
-    public static final int POSTER_INITIALS_LENGTH = 3;
-    public static final int TRANSACTION_SUBTYPE_LENGTH = 2;
-    public static final int BROKER_NUMBER_LENGTH = 3;
-    public static final int DECIMAL_PRECISION = 17;
-    public static final int DECIMAL_SCALE = 2;
-
-
 }

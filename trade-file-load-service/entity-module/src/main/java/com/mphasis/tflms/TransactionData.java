@@ -1,15 +1,17 @@
 package com.mphasis.tflms;
 
-import com.mphasis.tflms.constants.TransactionDataConstants;
+import com.mphasis.tflms.constants.TransactionDataEntityConstants;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = TransactionDataConstants.TABLE_NAME)
+@Table(name = TransactionDataEntityConstants.TABLE_NAME)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,98 +20,99 @@ public class TransactionData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = TransactionDataConstants.COLUMN_ID)
+    @Column(name = TransactionDataEntityConstants.COLUMN_ID)
     private Long id;
 
-    @NotNull
-    @Column(name = TransactionDataConstants.COLUMN_FILE_HEADER_DATE, length = TransactionDataConstants.FILE_HEADER_DATE_LENGTH)
+    @NotNull(message = "File header date cannot be null")
+    @Column(name = TransactionDataEntityConstants.COLUMN_FILE_HEADER_DATE)
     private LocalDate fileHeaderDate;
 
     @NotNull
-    @Size(min = TransactionDataConstants.ACCOUNT_NUMBER_LENGTH, max = TransactionDataConstants.ACCOUNT_NUMBER_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_ACCOUNT_NUMBER, length = TransactionDataConstants.ACCOUNT_NUMBER_LENGTH, unique = true)
+    @Size(min = 12, max = 12)
+    @Column(name = TransactionDataEntityConstants.COLUMN_ACCOUNT_NUMBER, unique = true)
     private String accountNumber;
 
     @NotNull
-    @Size(max = TransactionDataConstants.TRANSACTION_TYPE_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_TRANSACTION_TYPE, length = TransactionDataConstants.TRANSACTION_TYPE_LENGTH)
+    @Size(min = 3, max = 3)
+    @Column(name = TransactionDataEntityConstants.COLUMN_TRANSACTION_TYPE)
     private String transactionType;
 
     @NotNull
-    @Size(max = TransactionDataConstants.BATCH_LOCATION_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_BATCH_LOCATION, length = TransactionDataConstants.BATCH_LOCATION_LENGTH)
+    @Size(min = 2, max = 2)
+    @Column(name = TransactionDataEntityConstants.COLUMN_BATCH_LOCATION)
     private String batchLocation;
 
     @NotNull
-    @Size(max = TransactionDataConstants.BATCH_NUMBER_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_BATCH_NUMBER, length = TransactionDataConstants.BATCH_NUMBER_LENGTH, unique = true)
+    @Size(min = 6, max = 6)
+    @Column(name = TransactionDataEntityConstants.COLUMN_BATCH_NUMBER, unique = true)
     private String batchNumber;
 
     @NotNull
-    @Column(name = TransactionDataConstants.COLUMN_UPDATE_BATCH_STATE, length = TransactionDataConstants.UPDATE_BATCH_STATE_LENGTH)
-    private LocalDate updateBatchState;
+    @Size(min = 8, max = 8) // YYYYMMDD format
+    @Column(name = TransactionDataEntityConstants.COLUMN_UPDATE_BATCH_STATE)
+    private String updateBatchState;
 
-    @Size(max = TransactionDataConstants.RELATED_FILE_NUMBER_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_RELATED_FILE_NUMBER, length = TransactionDataConstants.RELATED_FILE_NUMBER_LENGTH)
+    @Size(min = 2, max = 2)
+    @Column(name = TransactionDataEntityConstants.COLUMN_RELATED_FILE_NUMBER)
     private String relatedFileNumber;
 
     @NotNull
-    @Size(max = TransactionDataConstants.ACTION_NAME_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_ACTION_NAME, length = TransactionDataConstants.ACTION_NAME_LENGTH)
+    @Size(min = 1, max = 12)
+    @Column(name = TransactionDataEntityConstants.COLUMN_ACTION_NAME)
     private String actionName;
 
     @NotNull
-    @Size(max = TransactionDataConstants.RELATED_FILE_KEY_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_RELATED_FILE_KEY, length = TransactionDataConstants.RELATED_FILE_KEY_LENGTH, unique = true)
+    @Size(min = 6, max = 6)
+    @Column(name = TransactionDataEntityConstants.COLUMN_RELATED_FILE_KEY, unique = true)
     private String relatedFileKey;
 
     @NotNull
-    @Column(name = TransactionDataConstants.COLUMN_DO_NOT_REPORT_FLAG, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    @Column(name = TransactionDataEntityConstants.COLUMN_DO_NOT_REPORT_FLAG, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean doNotReportFlag = false;
 
-    @Size(max = TransactionDataConstants.EXPLANATION_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_EXPLANATION, length = TransactionDataConstants.EXPLANATION_LENGTH)
+    @Size(max = 50)
+    @Column(name = TransactionDataEntityConstants.COLUMN_EXPLANATION)
     private String explanation;
 
-    @Size(max = TransactionDataConstants.MINOR_ASSETS_CLASS_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_MINOR_ASSETS_CLASS, length = TransactionDataConstants.MINOR_ASSETS_CLASS_LENGTH)
+    @Size(min = 3, max = 3)
+    @Column(name = TransactionDataEntityConstants.COLUMN_MINOR_ASSETS_CLASS)
     private String minorAssetsClass;
 
     @NotNull
-    @Size(max = TransactionDataConstants.OWNING_PORTFOLIO_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_OWNING_PORTFOLIO, length = TransactionDataConstants.OWNING_PORTFOLIO_LENGTH)
+    @Size(min = 1, max = 1)
+    @Column(name = TransactionDataEntityConstants.COLUMN_OWNING_PORTFOLIO)
     private String owningPortfolio;
 
     @NotNull
-    @Size(max = TransactionDataConstants.POSTER_INITIALS_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_POSTER_INITIALS, length = TransactionDataConstants.POSTER_INITIALS_LENGTH)
+    @Size(min = 3, max = 3)
+    @Column(name = TransactionDataEntityConstants.COLUMN_POSTER_INITIALS)
     private String posterInitials;
 
     @NotNull
-    @Size(max = TransactionDataConstants.TRANSACTION_SUBTYPE_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_TRANSACTION_SUBTYPE, length = TransactionDataConstants.TRANSACTION_SUBTYPE_LENGTH)
+    @Size(min = 2, max = 2)
+    @Column(name = TransactionDataEntityConstants.COLUMN_TRANSACTION_SUBTYPE)
     private String transactionSubtype;
 
     @NotNull
-    @Digits(integer = TransactionDataConstants.DECIMAL_PRECISION, fraction = TransactionDataConstants.DECIMAL_SCALE)
-    @Column(name = TransactionDataConstants.COLUMN_CASH_EFFECT, precision = TransactionDataConstants.DECIMAL_PRECISION, scale = TransactionDataConstants.DECIMAL_SCALE)
+    @Digits(integer = 15, fraction = 2)
+    @Column(name = TransactionDataEntityConstants.COLUMN_CASH_EFFECT)
     private BigDecimal cashEffect;
 
-    @Digits(integer = TransactionDataConstants.DECIMAL_PRECISION, fraction = TransactionDataConstants.DECIMAL_SCALE)
-    @Column(name = TransactionDataConstants.COLUMN_CASH_PAID_OUT, precision = TransactionDataConstants.DECIMAL_PRECISION, scale = TransactionDataConstants.DECIMAL_SCALE)
+    @Digits(integer = 15, fraction = 2)
+    @Column(name = TransactionDataEntityConstants.COLUMN_CASH_PAID_OUT)
     private BigDecimal cashPaidOut;
 
-    @Size(max = TransactionDataConstants.BROKER_NUMBER_LENGTH)
-    @Column(name = TransactionDataConstants.COLUMN_BROKER_NUMBER, length = TransactionDataConstants.BROKER_NUMBER_LENGTH)
+    @Size(min = 3, max = 3)
+    @Column(name = TransactionDataEntityConstants.COLUMN_BROKER_NUMBER)
     private String brokerNumber;
 
     @NotNull
-    @Digits(integer = TransactionDataConstants.DECIMAL_PRECISION, fraction = TransactionDataConstants.DECIMAL_SCALE)
-    @Column(name = TransactionDataConstants.COLUMN_OLD_BALANCE, precision = TransactionDataConstants.DECIMAL_PRECISION, scale = TransactionDataConstants.DECIMAL_SCALE)
+    @Digits(integer = 17, fraction = 2)
+    @Column(name = TransactionDataEntityConstants.COLUMN_OLD_BALANCE)
     private BigDecimal oldBalance;
 
     @NotNull
-    @Digits(integer = TransactionDataConstants.DECIMAL_PRECISION, fraction = TransactionDataConstants.DECIMAL_SCALE)
-    @Column(name = TransactionDataConstants.COLUMN_NEW_BALANCE, precision = TransactionDataConstants.DECIMAL_PRECISION, scale = TransactionDataConstants.DECIMAL_SCALE)
+    @Digits(integer = 17, fraction = 2)
+    @Column(name = TransactionDataEntityConstants.COLUMN_NEW_BALANCE)
     private BigDecimal newBalance;
 }
