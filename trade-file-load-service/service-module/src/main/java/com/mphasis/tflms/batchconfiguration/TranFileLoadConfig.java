@@ -20,7 +20,7 @@ import java.io.File;
 
 
 @Configuration
-public class TranFileLoadConfig extends BatchConfigConstants {
+public class TranFileLoadConfig {
     
     @Value("${batch.chunk.size}")
     private int chunkSize;
@@ -35,15 +35,17 @@ public class TranFileLoadConfig extends BatchConfigConstants {
                 .strict(false)
                 .build();
     }
+    
     @Bean
     public TransFileWriter itemWriter(){
         return new TransFileWriter();
     }
+    
     @Bean
-    public TransactionDataProcessor itemProcessor(){
-
-        return new TransactionDataProcessor();
+    public TransDataProcessor itemProcessor(){
+        return new TransDataProcessor();
         }
+    
     @Bean
     public Job job (JobRepository jobRepository, Step step) {
         return new JobBuilder("tradeFileLoadJob", jobRepository)
