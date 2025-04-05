@@ -22,7 +22,7 @@ import java.io.File;
 @Configuration
 public class TranFileLoadConfig extends BatchConfigConstants {
     
-    @Value("${batchChunkSize}")
+    @Value("${batch.chunk.size}")
     private int chunkSize;
     
     @Bean
