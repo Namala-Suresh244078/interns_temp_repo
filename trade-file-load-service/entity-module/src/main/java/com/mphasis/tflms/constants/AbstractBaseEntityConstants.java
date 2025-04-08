@@ -1,6 +1,6 @@
 package com.mphasis.tflms.constants;
 
-public class AbstractBaseConstants {
+public class AbstractBaseEntityConstants {
 
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_CREATED_BY = "createdBy";

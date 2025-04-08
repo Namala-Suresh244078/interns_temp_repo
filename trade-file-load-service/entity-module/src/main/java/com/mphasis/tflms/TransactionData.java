@@ -115,4 +115,11 @@ public class TransactionData {
     @Digits(integer = 17, fraction = 2)
     @Column(name = TransactionDataEntityConstants.COLUMN_NEW_BALANCE)
     private BigDecimal newBalance;
+
+
+
+    @Column(name = "error_Guid")
+    private String errorGuid;
+
+
 }
