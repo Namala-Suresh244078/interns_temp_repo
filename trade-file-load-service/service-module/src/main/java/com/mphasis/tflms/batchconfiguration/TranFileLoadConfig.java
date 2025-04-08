@@ -1,7 +1,5 @@
 package com.mphasis.tflms.batchconfiguration;
 
-
-import com.mphasis.tflms.BatchConfigConstants;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
@@ -10,10 +8,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import java.io.File;
-
+import static com.mphasis.tflms.BatchJobConstants.*;
 
 @Configuration
-public class TranFileLoadConfig extends BatchConfigConstants {
+public class TranFileLoadConfig {
 
     @Bean
     @StepScope
